@@ -11,7 +11,7 @@ ENV_NAME="pollinator_abundance" # You can keep this for descriptive messages
 .DEFAULT_GOAL := help
 
 # Phony targets definition
-.PHONY: help venv show fmt run clean
+.PHONY: help venv show fmt run api clean
 
 help: ## Show this help message.
 	@echo "Usage: make <target>"
@@ -53,6 +53,10 @@ fmt: venv ## Format, lint, and type-check code using uv run.
 run: venv ## Run the main application script.
 	@echo "Running the main application script (src/pollinator_abundance/main.py) using uv run..."
 	@uv run python src/pollinator_abundance/main.py
+
+api: venv ## Run the FastAPI server.
+	@echo "Starting the FastAPI server on http://localhost:8000..."
+	@uv run python src/pollinator_abundance/run_api.py
 
 clean: ## Remove the .venv directory.
 	@echo "Removing .venv directory..."

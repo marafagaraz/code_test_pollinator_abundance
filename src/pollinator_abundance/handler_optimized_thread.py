@@ -190,7 +190,7 @@ def lambda_bee(
     return ns_name, pa_image, ns_image
 
 
-def pollinator_abundance_calculation(plantation_id=9827, roi_id=284086, ca_id=284085):
+def pollinator_abundance_calculation_optimized(plantation_id=9827, roi_id=284086, ca_id=284085):
     """Main function to calculate the Pollinator Abundance (PA) and Nectar Potential (NP) for a given plantation and ROI.
 
     Args:

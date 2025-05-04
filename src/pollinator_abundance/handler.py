@@ -190,18 +190,24 @@ def lambda_bee(
     return ns_name, pa_image, ns_image
 
 
-def pollinator_abundance_calculation():
-    """Main function to calculate the Pollinator Abundance (PA) and Nectar Potential (NP) for a given plantation and ROI."""
+def pollinator_abundance_calculation(plantation_id=9827, roi_id=284086, ca_id=284085):
+    """Main function to calculate the Pollinator Abundance (PA) and Nectar Potential (NP) for a given plantation and ROI.
+
+    Args:
+        plantation_id: ID of the plantation
+        roi_id: ID of the Region of Interest (ROI)
+        ca_id: ID of the Comparison Area (CA)
+
+    Returns:
+        Dictionary containing the calculation results
+    """
     start_lt = time.time()
 
     dict_of_results = {}
 
-    # Hardcoded inputs
-    plantation_id = 9827
-    plantations_polygons_id = 9773
+    # Set default values for other parameters
+    plantations_polygons_id = 9773  # This could be made a parameter in the future if needed
     resolution = "low"
-    ca_id = 284085
-    roi_id = 284086
     override_bee = True
     how = "local"
     compute_pa_ns = True
@@ -217,26 +223,26 @@ def pollinator_abundance_calculation():
 
     # Set ROI and CA indices
     roi = {
-        "plantation_id": 9827,
-        "id": 284086,
+        "plantation_id": plantation_id,
+        "id": roi_id,
         "alignment_point_x": 198.0,
         "alignment_point_y": 289.0,
         "ratio_x": 5.674733628978614,
         "ratio_y": 5.662378135559605,
         "bbox": '{"type": "Polygon", "coordinates": [[[9.09288174073389, 45.80396180948701], [9.09288174073389, 45.82143582246963], [9.058201466780092, 45.82143582246963], [9.058201466780092, 45.80396180948701], [9.09288174073389, 45.80396180948701]]]}',
-        "plantations_polygons_id": 9773,
+        "plantations_polygons_id": plantations_polygons_id,
         "related_at": datetime(2024, 7, 1, 0, 0),
         "image_url": None,
     }
     ca = {
-        "plantation_id": 9827,
-        "id": 284085,
+        "plantation_id": plantation_id,
+        "id": ca_id,
         "alignment_point_x": 0.0,
         "alignment_point_y": 0.0,
         "ratio_x": 5.674644900406369,
         "ratio_y": 5.662291983909758,
         "bbox": '{"type": "Polygon", "coordinates": [[[9.108287083479684, 45.790967372071584], [9.108287083479684, 45.836154568894095], [9.043745268374089, 45.836154568894095], [9.043745268374089, 45.790967372071584], [9.108287083479684, 45.790967372071584]]]}',
-        "plantations_polygons_id": 9773,
+        "plantations_polygons_id": plantations_polygons_id,
         "related_at": datetime(2024, 7, 1, 0, 0),
         "image_url": None,
     }

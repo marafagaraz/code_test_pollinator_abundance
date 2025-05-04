@@ -1,10 +1,10 @@
 import time
-import pytest
 import logging
 import statistics
 from typing import List
 
-from pollinator_abundance.main import pollinator_abundance_calculation
+from pollinator_abundance.handler import pollinator_abundance_calculation
+from pollinator_abundance.handler_optimized_thread import pollinator_abundance_calculation_optimized
 
 # Get a logger for this test module
 logger = logging.getLogger(__name__)
@@ -69,6 +69,36 @@ def test_execution_time():
     assert std_dev < max_std_dev, f"Execution time variation ({std_dev:.4f}s) exceeds maximum ({max_std_dev:.4f}s)"
 
 
-if __name__ == "__main__":
-    # This allows running the tests directly from this file
-    pytest.main(["-xvs", __file__])
+def test_execution_time_optimized():
+    """
+    Test that the pollinator_abundance_calculation optimized function executes within an acceptable time range.
+
+    This test measures the execution time over multiple iterations and ensures that:
+    1. The average execution time is below a maximum threshold
+    2. The execution time is consistent (low standard deviation)
+    """
+    # Number of iterations to run
+    iterations = 3
+
+    # Maximum acceptable average execution time (in seconds)
+    max_avg_time = 5.0
+
+    # Maximum acceptable standard deviation (in seconds)
+    max_std_dev = 1.0
+
+    # Measure execution times
+    execution_times = measure_execution_time(pollinator_abundance_calculation_optimized, iterations)
+
+    # Calculate statistics
+    avg_time = statistics.mean(execution_times)
+    std_dev = statistics.stdev(execution_times) if len(execution_times) > 1 else 0
+
+    # Log the results
+    logger.info(f"Average execution time OPTIMIZED: {avg_time:.4f} seconds")
+    logger.info(f"Standard deviation OPTIMIZED: {std_dev:.4f} seconds")
+
+    # Assert that the average execution time is below the threshold
+    assert avg_time < max_avg_time, f"Average execution time OPTIMIZED ({avg_time:.4f}s) exceeds maximum ({max_avg_time:.4f}s)"
+
+    # Assert that the execution time is consistent
+    assert std_dev < max_std_dev, f"Execution time variation OPTIMIZED ({std_dev:.4f}s) exceeds maximum ({max_std_dev:.4f}s)"

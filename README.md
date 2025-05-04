@@ -125,6 +125,8 @@ I've created a set of tests that verify the output stability of the `pollinator_
 - Verifies that future runs produce exactly the same output
 
 #### Code Change Simulation Test (`test_output_stability_with_code_change`)
+This test will skip in the first execution because it requires a reference data to compare against. 
+You will get a message like "Reference data doesn't exist. Run the basic stability test first."
 - Simulates a code change by patching a function to return slightly modified values
 - Verifies that the test can detect the change
 - Demonstrates how the test can be used to ensure output stability
